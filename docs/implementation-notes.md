@@ -1,6 +1,6 @@
 # Implementation notes
 
-These are design notes for a future build, not an application scaffold. Read the [plan](plan.md), [source mapping](model-map.md), [selected decisions](review-decisions.md), and [v0 scenario](scenario-v0.md) together. The scenario supplies the economic defaults under the user's delegation; library defaults and interface shortcuts must not override them.
+These notes describe the intended architecture across all stages. P1 has now been implemented; [build notes](build-notes.md) describe the actual source layout, validation, and remaining stages. Read the [plan](plan.md), [source mapping](model-map.md), [selected decisions](review-decisions.md), and [v0 scenario](scenario-v0.md) together. The scenario supplies the economic defaults under the user's delegation; library defaults and interface shortcuts must not override them.
 
 ## 1. Separate institutional rules from the game economy
 

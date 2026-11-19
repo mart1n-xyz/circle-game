@@ -1,6 +1,6 @@
 # Game plan
 
-**State:** implementation plan with defaults selected under the user's delegation. No game is being built in this phase. The [decision register](review-decisions.md) explains the choices; the [v0 scenario](scenario-v0.md) specifies them.
+**State:** the user subsequently authorized the build. P1 is implemented as a private browser board game with one player and five bots. See [build notes](build-notes.md) for actual coverage and checks. P2–P4 remain the delivery roadmap below. The [decision register](review-decisions.md) explains the choices; the [v0 scenario](scenario-v0.md) specifies them.
 
 ## Product brief
 

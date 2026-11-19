@@ -1,6 +1,6 @@
 # Validation plan for the later build
 
-This file specifies meaningful future checks. No game code or tests are being implemented during the documentation phase. Source B IDs refer to [model-map.md](model-map.md); D IDs refer to [review-decisions.md](review-decisions.md). Selected numeric fixtures and interpretation choices come from [scenario-v0.md](scenario-v0.md).
+This file specifies acceptance checks across all planned stages. P1 implementation and its executed checks are recorded in [build notes](build-notes.md); the table below is not a claim that every network/multiplayer requirement is already tested. Source B IDs refer to [model-map.md](model-map.md); D IDs refer to [review-decisions.md](review-decisions.md). Selected numeric fixtures and interpretation choices come from [scenario-v0.md](scenario-v0.md).
 
 ## Accounting and institutional invariants
 

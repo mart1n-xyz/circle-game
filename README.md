@@ -4,7 +4,35 @@ A browser strategy game about being a member of a mutual savings and lending cir
 
 The game demonstrates the Neo-Mutual Organisation model through ordinary participation. Benefits, tradeoffs, and failures emerge from the same rules; a campaign built around exposing problems is not the product brief.
 
-**Status: planning complete with selected defaults; implementation has not started.** The user delegated the open choices after analysis. The private repository now records the plan, those choices, their reasoning, and worked accounting examples. The user will request the build after review.
+**Status: P1 playable browser board game.** A single player and five bots can complete a 24-month investment season followed by seven settlement months. The supplied blueprint is unchanged; the game uses the selected defaults and tracks later model stages explicitly.
+
+[Play the private game](https://circle-table-mart1n.mart1n-xyz.chatgpt.site) · [What is implemented and checked](docs/build-notes.md)
+
+The table includes monthly budgeting, outside investments, personal co-funding and circle loans, disclosure choices, sureties, recused member votes, automatic and extra repayments, arrears/defaults, losses and recoveries, saver interest and dividends, withdrawals and exit, a portfolio, a ledger, and standings. Progress saves automatically in the current browser.
+
+This is local practice. The five other seats are bots following the same institutional rules with distinct policies and permitted observations. There are no online rooms or verified rankings yet. Browser storage contains the simulation state; it is not a security boundary for hidden information. P2 adds multiplayer authority, and P3 adds the recursive network and growth/check machinery.
+
+## Run locally
+
+Use Node.js 24 and npm. Dependencies are pinned in `package-lock.json`.
+
+```sh
+npm ci
+npm run dev
+```
+
+Open `http://localhost:4173`. The application has no API key, external model service, wallet, or real-money dependency. Fonts and illustrations are served locally.
+
+```sh
+npm test                 # Engine/accounting checks and 20 complete simulated seasons
+npm run build           # Strict TypeScript check and production assets in dist/
+npx playwright install --with-deps chromium
+npm run test:browser     # Desktop + mobile controls, persistence, and complete seasons
+```
+
+The browser suite uses `playwright.config.ts` and starts Vite when needed. On Linux, Chromium needs its system libraries; the installation command may require administrator rights. Production hosting is configured in `.openai/hosting.json` and remains private.
+
+## Original design documents
 
 Read in this order:
 
@@ -13,7 +41,7 @@ Read in this order:
 3. [Selected decisions](docs/review-decisions.md): defaults chosen under the user's delegation and their source boundaries.
 4. [V0 scenario and analysis](docs/scenario-v0.md): starting balances, lending, voting, liquidity, risk information, settlement, and worked examples.
 5. [Implementation notes](docs/implementation-notes.md): accounting, hidden information, settlement, multiplayer, and proposed architecture.
-6. [Validation plan](docs/validation-plan.md): the checks a later implementation must satisfy.
+6. [Validation plan](docs/validation-plan.md): the acceptance checks across all planned stages.
 
 The [original blueprint](docs/blueprints/neo-mutual-organisation.md) is preserved byte for byte. [Source provenance](docs/blueprints/README.md) records its checksum and the limits of the supplied material.
 
@@ -25,8 +53,8 @@ Loans remain obligations when projects disappoint. Successful lending can pay sa
 
 The complete planned demonstration includes federations, checks, referrals, sponsorship, and growth. The opening scene is always an established circle; founding is a later activity rather than mandatory onboarding.
 
-## Review and handoff
+## Design boundaries
 
 The latest user direction controls the product experience. The supplied blueprint controls the institutional rules unless the user explicitly requests a change. The selected gameplay defaults fill its gaps; they are not decisions made by the blueprint's author. Numeric balance and inference quality still need playtesting during the authorised build.
 
-No application, dependency manifest, deployment, wallet connection, or real-money integration is included in this planning repository. A later explicit build request is the handoff to implementation.
+The subsequent explicit build request authorized this implementation. [Build notes](docs/build-notes.md) distinguish completed P1 behavior, current validation, and deferred P2/P3 requirements. Playtesting should tune visible, versioned scenario parameters rather than silently changing the institutional model.

@@ -1,8 +1,6 @@
 # Working in this repository
 
-This repository currently contains a plan for review. The user explicitly said they will request implementation after reviewing it. Until that request arrives, work on documentation only. Do not scaffold the application, install application dependencies, create hosting resources, or deploy a game.
-
-A later explicit request to build satisfies this authorization boundary; do not ask for the same permission again.
+The user explicitly requested implementation: “ok build this out as in browser board game.” The documentation-only gate is satisfied. P1 is now a playable local practice season in the browser, with private Sites hosting. Continue ordinary implementation and fixes within that authorization; do not ask for the same permission again.
 
 Before implementing, read README.md, docs/plan.md, docs/model-map.md, docs/implementation-notes.md, docs/review-decisions.md, and docs/scenario-v0.md. Consult the source sections in docs/blueprints/neo-mutual-organisation.md for the mechanics being changed.
 
@@ -15,5 +13,6 @@ Before implementing, read README.md, docs/plan.md, docs/model-map.md, docs/imple
 - Treat credibility as a game information mechanism; it does not replace the blueprint's contribution/repayment-based ceiling or member approval.
 - Separate member money, unit cash, outstanding loans, and collective reserves. Never create money through interest labels, duplicate collateral, or double-counted losses.
 - Keep hidden project information and ranked multiplayer state on the authoritative server. Bots receive the same permitted observations and action rules as people.
-- Keep this repository private. Site creation and publication are separate future work, governed by the user's build instructions.
+- P1 stores its complete simulation in the browser and is explicitly unverified practice. It is not a secure multiplayer server. Do not advertise online rooms or protected hidden state until P2 actually supplies them.
+- Keep this repository and the existing Site private. Reuse the project ID in `.openai/hosting.json`; never create a duplicate Site for this game.
 - Run checks appropriate to the actual change. The planned implementation checks are in docs/validation-plan.md; documentation work does not require an application scaffold.
