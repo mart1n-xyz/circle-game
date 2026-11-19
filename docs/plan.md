@@ -1,6 +1,6 @@
 # Game plan
 
-**State:** proposed implementation plan for user review. No game is being built in this phase.
+**State:** implementation plan with defaults selected under the user's delegation. No game is being built in this phase. The [decision register](review-decisions.md) explains the choices; the [v0 scenario](scenario-v0.md) specifies them.
 
 ## Product brief
 
@@ -25,11 +25,11 @@ The experience should reveal how the model operates through decisions and outcom
 | U09 | Give participants the same game rules and a leaderboard. |
 | U10 | Create a private repository containing the plan and implementation notes; wait for a subsequent build request. |
 
-The shared-room format, exact season length, numeric starting balances, ranking formula, and credibility algorithm below are proposals. They have not been specified by the institutional blueprint.
+The shared-room format, season length, starting balances, ranking formula, and credibility algorithm are selected game assumptions. They have not been specified by the institutional blueprint.
 
 ## Starting position and player authority
 
-The proposed first scenario has six member seats, initially active, in one established circle. Six seats and a 24-month season are editable demonstration settings, not model requirements. Bots can fill a development room; the reviewed multiplayer release supports people in the same room.
+The selected first scenario has six member seats, initially active, in one established circle. Six seats, 24 decision months, and seven run-off months are versioned demonstration settings, not model requirements. Bots fill a P1 practice room; P2 supports people in the same room.
 
 The starting ledger includes member shares, optional circle savings, cash, existing loans, and retained capital. Every balance has a recorded opening counterpart or prior transaction; no unexplained reserve is added. A sponsor and higher unit can exist in the scenario before the player arrives. Their obligations and permissions must be consistent with the chosen scenario's history.
 
@@ -56,7 +56,7 @@ Monthly rounds are the requested game pacing. Admission, active status, check el
 5. **Execute.** Settle eligible withdrawals, approved loans, contributions, and investments under the rule set. Requests competing for insufficient cash use a published allocation rule, not network arrival speed.
 6. **Close and inspect.** Close the books, allocate any actual surplus in the model's order, update justified reputation observations, and show what changed. Newly funded investments first produce receipts in a later round.
 
-The detailed timing and appropriation rules are review decisions. They must be fixed for a room and shown before players commit funds.
+The selected timing and appropriation rules are fixed for a room and shown before players commit funds. Paid contributions affect that round's ceiling; active-status changes affect the next voter snapshot.
 
 ## Investment opportunities
 
@@ -104,11 +104,11 @@ Use a whole-page game layout with a member circle, a clear personal position, an
 
 ## Scoring and season completion
 
-Propose final personal net wealth as the primary within-room ranking, with equal starting endowments and an explicit common rule set. Show contribution, repayment, return, surety losses, and circle health alongside it rather than hiding them inside an unexplained moral score.
+Use final personal net wealth as the primary within-room ranking, with equal starting endowments and an explicit common rule set. Show contribution, repayment, return, surety losses, and circle health alongside it rather than hiding them inside an unexplained moral score.
 
 The primary leaderboard is a game addition, not a mutual governance right. Rank gives no extra vote, lending entitlement, or right to collective reserves. Wealth-maximising play may produce aggressive risk-taking; the model determines its consequences.
 
-Stop issuing new long-lived positions before the final scoring phase. Resolve remaining projects, debts, pledges, claims, and withdrawals through a defined run-off. Do not rank borrowed cash as free wealth or silently assume illiquid circle claims can be withdrawn at face value. Terminal valuation and any unresolved obligations must be explicit.
+Stop new commitments after round 24. Resolve remaining projects, debts, pledges, claims, and withdrawals through round 31 under the selected run-off policy. A write-off does not forgive the borrower's unpaid obligation in this game; it still reduces the score, without adding rights to seize outside assets. Do not rank borrowed cash as free wealth or assume illiquid circle claims can be withdrawn at face value.
 
 Separate unverified local practice from server-verified multiplayer results. Cross-room comparisons need compatible rules, endowments, season lengths, and opportunity conditions. Start with a room leaderboard rather than a misleading universal ranking.
 

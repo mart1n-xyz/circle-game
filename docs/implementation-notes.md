@@ -1,6 +1,6 @@
 # Implementation notes
 
-These are design notes for a future build, not an application scaffold. Read the [plan](plan.md), [source mapping](model-map.md), and [decision register](review-decisions.md) together. Unresolved economic policies are not filled in by library defaults or interface shortcuts.
+These are design notes for a future build, not an application scaffold. Read the [plan](plan.md), [source mapping](model-map.md), [selected decisions](review-decisions.md), and [v0 scenario](scenario-v0.md) together. The scenario supplies the economic defaults under the user's delegation; library defaults and interface shortcuts must not override them.
 
 ## 1. Separate institutional rules from the game economy
 
@@ -67,17 +67,17 @@ Distinguish available cash from earmarked cash; unencumbered claims from encumbe
 
 ### Loss accounting
 
-Preserve the source's order and resolve D04/D06/D07 before coding it. The ledger must recognise each economic loss once. Do not subtract the same loss from both net surplus and reserve as independent charges merely because both source formulas mention losses.
+Preserve the source's order using the selected D04/D06/D07 rules. The ledger must recognise each economic loss once. Current operating earnings absorb recognised residual loan losses first; a deficit reduces opening reserve and then member claims. Retain only from positive net surplus. Do not subtract the same loss from both net surplus and reserve as independent charges merely because both source formulas mention losses.
 
-An illustrative closed-period check, not a recommended lending policy: start with assets of 120, member claims of 100, and reserve of 20. Assets include a 60 loan that becomes entirely unrecoverable and 60 of remaining cash/assets. Apply 10 of genuinely available borrower/surety claims, consume 20 of reserve, and write down 30 of other member claims. End with assets of 60, remaining member claims of 60, and no reserve. The collateral set-off never creates 10 of cash. Assume no other flows and that the selected ceilings allowed this exposure.
+An isolated accounting fixture, not a valid fresh origination under the v0 ceiling: start with assets of 120, member claims of 100, and reserve of 20. Assets include a 60 loan that becomes entirely unrecoverable and 60 of remaining cash/assets. Apply 10 of available borrower/surety claims, consume 20 of reserve, and write down 30 of other member claims. End with assets of 60, remaining member claims of 60, and no reserve. The collateral set-off never creates 10 of cash. Assume no other flows. The scenario's worked examples separately verify balances and capacity under actual v0 origination rules.
 
-A person cannot have outside assets involuntarily seized merely because the engine can see them. Voluntary payments are allowed. A unit's wider asset reach and upstream creditor priority are separate source rules. A lender's accounting write-off and cancellation of the borrower's obligation must not be conflated; terminal scoring follows the selected resolution event.
+A person cannot have outside assets involuntarily seized merely because the engine can see them. Voluntary payments are allowed. A unit's wider asset reach and upstream creditor priority are separate source rules. A lender's accounting write-off does not cancel the residual borrower obligation under D06; it remains in the personal record and final score, without new collection powers. Track later recoveries and claim/reserve restoration separately from new interest income. Principal and already-earned interest settled by claim cancellation also require distinct postings.
 
 ## 4. Atomic monthly state transitions
 
 Use named phases, an immutable rules version, and a state revision. Commands have an idempotency key, actor, phase, and expected revision. Reject actions that are late, duplicate, unauthorised, or based on a materially changed proposal.
 
-Proposed ordering for review:
+Selected monthly ordering:
 
 1. Open with the previous closed ledger. Resolve scheduled external income and project receipts, then required household expenses and existing loan dues using disclosed payment instructions.
 2. Recognise arrears/default events due under the agreed policy. Produce the current public observations and new private opportunities. Snapshot active voting eligibility according to D03.
@@ -89,13 +89,13 @@ Proposed ordering for review:
 
 Settlement is all-or-nothing at each defined transaction boundary. A crashed host, repeated request, or reconnect must not execute a payout twice. Re-evaluate cash and collateral at execution even if an earlier UI preview said an action was feasible.
 
-This phase ordering is a proposed game policy, not a newly discovered rule in the blueprint. Resolve whether a particular month's contributions qualify for that month's loan ceiling and document it. Existing claims cannot be silently rewritten by changing a slider mid-round.
+This phase ordering is a selected game policy, not a newly discovered rule in the blueprint. Contributions actually paid before application settlement qualify for that round's ceiling. Participation changes at close affect the next voter snapshot. Use D03's frozen electorate and funding draw, D05's withdrawal priority/cash buffer, and the scenario's interest and rounding conventions. Existing claims cannot be silently rewritten by changing a slider mid-round.
 
 ## 5. Risk, private information, and disclosure
 
 ### Project generation
 
-Generate underlying projects and private/public signals separately. A project has actual future outcome logic; an application contains claims about it. The assessor's interval must be computed from observations they are entitled to use, not centred directly on a hidden true parameter.
+Generate underlying projects and private/public signals separately. Use the scenario's risk bands, family priors, inspection likelihood, and disclosure policy. A project has actual future outcome logic; an application contains claims about it. The assessor's interval must be computed from observations they are entitled to use, not centred directly on a hidden true parameter.
 
 Each failure probability names its horizon. If a simple constant monthly hazard represents a lifetime probability `p` over `T` months, use a consistent conversion such as `h = 1 - (1 - p)^(1/T)` in that simple model. Do not apply a lifetime probability independently every month. Shared shocks and varying hazards require their own explicit conditional model.
 
@@ -105,9 +105,9 @@ Provide project receipts, losses, and recoveries that correspond to actual proje
 
 Record repayment reliability separately from supported disclosure accuracy. Recent defaults can affect lending judgement without implying fraud. Honest forecasts can be wrong, particularly with few observations. A single unlucky result is not proof that a range was deliberately misleading.
 
-Structured disclosure controls can expose or omit pieces of evidence and allow optimistic forecasts. They should change the inference problem without editing the hidden risk generator. Misleading claims can be challenged by later available evidence. Avoid an honesty oracle that tells other players whether someone is lying before any evidence exists.
+Structured disclosure controls can attach the inspection, claim a band without attaching it, or withhold it. They change the inference problem without editing the hidden risk generator. Selected random later audits compare an unverified claim with the original inspection, not the latent risk band or a success/failure outcome. Verified attachments do not farm extra credibility, and omission has its stated selection adjustment. Avoid an honesty oracle before evidence exists.
 
-The displayed interval should be labelled an estimate with a named probability horizon. Its coverage and usefulness must be evaluated across simulated observations. High credibility can narrow uncertainty given appropriate evidence; it does not guarantee a favourable centre. Missingness can itself be informative, so a bot must not mechanically treat every wide interval as safer.
+The displayed interval is a central 80% posterior estimate with a named lifetime horizon, accompanied by the posterior mean, evidence type, and audit count. Its coverage and usefulness must be evaluated under the selected observation/disclosure model and under strategic deviations. The reliability-weighted inference rule is an assumption, not proven calibration. High credibility can narrow uncertainty given appropriate evidence; it does not guarantee a favourable centre. Missingness can itself be informative, so a bot must not mechanically treat every wide interval as safer.
 
 The credibility score is a game addition. Source §6.1 still uses the borrower's own paid-in funds and repayment record for the formal ceiling. Do not make good disclosure a substitute for a share, sureties, a vote, or liquidity.
 
@@ -115,7 +115,7 @@ The credibility score is a game addition. Source §6.1 still uses the borrower's
 
 Project truth, unreleased random draws, other households' private portfolios, private signals, and undisclosed evidence stay outside ordinary client payloads. Hidden HTML, disabled controls, obfuscated JavaScript, and browser storage are not access controls.
 
-Expose separate projections for the member's own position, peers' permitted observations, the circle treasury, and upstream aggregates. Other units need eligible summaries rather than member identities. The ordinary leaderboard should not inadvertently reveal private project parameters; propose within-room standings with appropriately limited intermediate detail and full permitted settlement results.
+Expose separate projections for the member's own position, peers' permitted observations, the circle treasury, and upstream aggregates. Other units need eligible summaries rather than member identities. Within-room standings expose appropriately limited intermediate detail and permitted settlement results, without revealing private inspections or project parameters.
 
 Practice mode may offer an explicit post-game reveal. Multiplayer reveal must respect the room's stated visibility policy. A public replay must not be a download of every participant's private state.
 
@@ -129,19 +129,19 @@ Use stable keyed random draws by room, opportunity, actor, round, and event kind
 
 For ranked rooms, keep the seed and unreleased outcome state on the server. A seed commitment at start and permitted reveal after completion can support reproducibility without exposing future results during play. The server computes outcomes and scores; it never accepts client-submitted net wealth as authoritative.
 
-At a deadline, apply only the published timeout policy: for example abstain from new proposals while continuing previously authorised payment instructions where funded. Timeouts must not forge new pledges, disclosures, guarantees, or loans on a player's behalf. Each participant should be able to inspect why an automatic action happened.
+At a deadline, apply D11: abstain from new proposals and votes while continuing previously authorised payment instructions where funded. An already-submitted valid command remains submitted; timeout does not invent a missing one. Timeouts must not forge new pledges, disclosures, guarantees, or loans on a player's behalf. Each participant should be able to inspect why an automatic action happened.
 
 ## 7. Leaderboard and terminal settlement
 
-Proposed personal net wealth at a resolved endpoint:
+Selected personal net wealth at a resolved endpoint:
 
-`personal cash + realised project residuals + recoverable member claims - outstanding personal obligations`
+`personal cash + recoverable member claims - outstanding personal obligations`
 
-Account for amounts already settled so they are not counted again. A called guarantee reduces the relevant claim once. Collective reserve is never added to a member's wealth. An unearned advance remains an obligation until the model's earning/recovery event resolves it.
+Project receipts and residual recoveries are already included in personal cash by the endpoint. Do not add a project value again. A called guarantee reduces the relevant claim once. Collective reserve is never added to a member's wealth. An unearned advance remains an obligation until the model's earning/recovery event resolves it. A defaulted unpaid loan balance remains an obligation under D06 even when its lender has written down the asset. This conservative personal scoring convention is not a consolidated wealth identity; use the actual ledgers/recovery values for circle and network accounting.
 
 Borrowing transfers cash and creates debt, so it does not create net wealth. Entering a project converts cash into project exposure, so it does not create immediate profit either. Provisional standings must distinguish estimated project/claim values from final realised results.
 
-Plan a funding cutoff and a finite run-off. Continue existing repayments, project outcomes, defaults, claims, and applicable charges until a known terminal resolution policy applies. If the circle cannot pay a withdrawal, do not convert that claim into personal cash for ranking. If claims remain at the endpoint, show their specified recoverable valuation and keep results provisional where required. Winding up must follow the source's reserve destination rather than distribute common capital to the richest players.
+Cut off new commitments after round 24 and run settlement through round 31 under D10 and the scenario. Continue existing repayments, contributions where authorised, project outcomes, defaults, claims, and applicable charges. If the circle cannot pay a withdrawal, do not convert that claim into personal cash for ranking. Reconcile surviving member claims to recoverable assets after debt/loss resolution; keep network results provisional if resolution has not converged. Winding up follows the source's parent destination or D12's collective orphan estate, never an individual share of common capital.
 
 Compare participants within the same room first. For later cross-room boards, separate rules/scenario versions, starting resources, duration, and verified/practice status. Reputation and rank must never change voting weight. Show circle outcomes alongside the personal ranking rather than secretly altering the score to make cooperation win.
 
@@ -149,7 +149,7 @@ Compare participants within the same room first. For later cross-room boards, se
 
 Start with generic member/unit and account primitives even while the first screen contains one circle. Adding the federation should create actual upstream deposit claims and loan assets/liabilities, not a liquidity button that mints money.
 
-P3 must include the source sequence for admission, vouching, qualifying checks, eligibility for above-cover credit and upstream voting, sustainability, bounded sponsor charges, reward accrual, advances, and further sponsorship. An initial established circle can already have some of these events in its recorded scenario history; later events remain inspectable and playable.
+P3 must include the source sequence for admission, vouching, qualifying checks, eligibility for above-cover credit and upstream voting, sustainability, bounded sponsor charges, reward accrual, advances, and further sponsorship. The scenario's network section selects admission timing, pledge-release events, reward parameters, check/audit settings, creditor priority, and orphan closure. An initial established circle can already have some of these events in its recorded scenario history; later events remain inspectable and playable.
 
 Model the three organiser payment types separately. Pay ongoing work only from the source-permitted discretionary surplus. Never count a founding charge as senior debt or make referrals payable from arbitrary treasury principal.
 

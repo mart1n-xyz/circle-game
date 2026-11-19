@@ -7,8 +7,8 @@ Statuses:
 - **Source:** required by the supplied model, with its stated degree of firmness.
 - **Source proposal:** explicitly undecided in the source; choosing it is a documented game assumption.
 - **User:** required by the user's game brief.
-- **Game proposal:** a suggested playable interpretation or abstraction.
-- **Open:** insufficiently specified; see the decision register.
+- **Selected game assumption:** an operational choice made under the user's delegation; see the decision register and v0 scenario.
+- **Source gap:** insufficiently specified in the blueprint, even where a playable default has now been selected.
 
 ## Institutional requirements
 
@@ -16,14 +16,14 @@ Statuses:
 | --- | --- | --- | --- |
 | B01 | §§3.1, 10 | A unit owns its treasury; members can be persons or other units. Represent these as the same membership/lending concepts. Other units are not branches commanded by the player. | P1 data model; P3 recursive play / Source |
 | B02 | §§3.1, 3.4 | Units may belong to several units or none. Formation is open; admission and access to network funds still require consent and qualification. The first unit owns the starting pool. | P3 / Source |
-| B03 | §§3.2, 4.5 | A borrowing unit cannot pay out member shares below what it owes. Apply unit-level obligations before extracting member value; operational coverage and liquidity tests require a selected rule. | P3 / Source + D05 |
+| B03 | §§3.2, 4.5 | A borrowing unit cannot pay out member shares below what it owes. Apply unit-level obligations before extracting member value; the selected coverage and liquidity tests are in D05 and the v0 scenario. | P3 / Source + D05 |
 | B04 | §§3.3, 3.5 | Contracts enforce books and money rules; identity, meetings, and project use are outside the ledger. Emulate contractual enforcement, proofs, and passage/check events in the game. Preserve private views across circles. | P1+ / Source; technology abstraction D14 |
 | B05 | §4.2 | Guest, member, and active member are different statuses. Only active members vouch, stand surety, and count in decisions. Payment preserves active status after a passage; wealth never increases vote count. | P1+ / Source |
 | B06 | §4.3 | Admission needs member vouching with pledged funds, a paid-up share, and local approval. No direct admission by a federation. Initial characters have a valid recorded history; later admissions are playable. | P1 initial history; P3 admissions / Source; ordering gap noted in D12 |
 | B07 | §4.4 | Recurring contributions are member-owned saving into the share, not fees. Optional savings and voted fees remain separate accounts. Contributed money helps fund lending. | P1+ / Source |
 | B08 | §§4.2, 6.1 | Active-status lapse does not end membership. Credit above own cover depends on ceiling and sureties, not meeting attendance or active status alone. | P1+ / Source |
 | B09 | §§4.5, 18.4 | Departure sets off obligations and unearned advances; accruing rewards lapse. Withdrawal notice, payout order, and other exit terms are not specified. Never invent an unconditional instant exit. | P1+ / Source + D05 |
-| B10 | §§5.1–5.2 | Admission, becoming active, and founding are passages; other activity can be remote. Unit decisions require a threshold/quorum of active members. | P1+ / Source; threshold D03 |
+| B10 | §§5.1–5.2 | Admission, becoming active, and founding are passages; other activity can be remote. Unit decisions require a threshold/quorum of active members. The source retains elected offices but leaves their form open; P3 uses the selected facilitator role and founding bootstrap. | P1+ passages/votes; P3 offices / Source; D03/D12 |
 | B11 | §§5.2, 18.2 | Borrower and surety exclusion from loan voting is proposed, not decided. Keep it a visible configurable choice, with related-party scope separately specified. | P1+ / Source proposal D03 |
 | B12 | §§5.3, 7.2 | Optional charter, permitted loan purposes, and member-directed surplus can support community goals. The draft mandates no social programme and pays nothing automatically for civic work. | P1 purposes; P3 optional community choices / Source |
 | B13 | §6.1 | Lend only within the borrower's ceiling based on own contributions and own repayment record. Above own cover, require active-member sureties. Unit approval remains necessary for every loan. | P1+ / Source; formula and cover D02/D04 |
@@ -56,11 +56,11 @@ Statuses:
 | Monthly income, expenses, personal saving | U03/U08 | External household economy is a game layer; circle contributions remain member claims. |
 | Personal investment opportunities and payouts | U04/U05 | Unit purpose rules, ceilings, approval, and liability still apply. Circle treasury does not directly speculate outside the network. |
 | Credibility-dependent intervals and strategic disclosure | U07 | This models information and judgement. It is neither source-defined underwriting nor a replacement for identity checks or own-record ceilings. |
-| Shared multiplayer room and bots | U09 + game proposal | Humans and bots obey the same action constraints; room size, timing, and bot policy are settings. |
-| Leaderboard and a finite season | U09 + game proposal | Rank has no governance rights; collective reserve is excluded; residual obligations cannot be ignored. |
-| Automated passage/check events | Game proposal | A browser simulation does not prove real-world identity, attendance, or physical meetings. |
-| No actual blockchain or money in the prototype | Game proposal | Emulate source contract semantics; do not represent the prototype as a financial deployment. |
+| Shared multiplayer room and bots | U09 + selected game assumption | Humans and bots obey the same action constraints; room size, timing, and bot policy are settings. |
+| Leaderboard and a finite season | U09 + selected game assumption | Rank has no governance rights; collective reserve is excluded; residual obligations cannot be ignored. |
+| Automated passage/check events | Selected game assumption | A browser simulation does not prove real-world identity, attendance, or physical meetings. |
+| No actual blockchain or money in the prototype | Selected game assumption | Emulate source contract semantics; do not represent the prototype as a financial deployment. |
 
 ## Handling changes and omissions
 
-Every implemented rule should identify its B/U requirement or a decision ID. A missing source mechanism belongs in the staged backlog and release coverage report. Changing a decided institutional rule requires a recorded user-requested variant. The earlier economic review supplies useful validation cases; proposed safeguards from that review are not automatically adopted model rules.
+Every implemented rule should identify its B/U requirement or a decision ID. The [selected decisions](review-decisions.md) and [v0 scenario](scenario-v0.md) resolve operational gaps for the game; a source proposal remains a source proposal even when selected. A missing source mechanism belongs in the staged backlog and release coverage report. Changing a decided institutional rule requires a recorded user-requested variant. The earlier economic review supplies useful validation cases; proposed safeguards from that review are not automatically adopted model rules.
