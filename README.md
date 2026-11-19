@@ -6,7 +6,7 @@ The game demonstrates the Neo-Mutual Organisation model through ordinary partici
 
 **Status: P1 playable browser board game.** A single player and five bots can complete a 24-month investment season followed by seven settlement months. The supplied blueprint is unchanged; the game uses the selected defaults and tracks later model stages explicitly.
 
-[Play the private game](https://circle-table-mart1n.mart1n-xyz.chatgpt.site) · [What is implemented and checked](docs/build-notes.md)
+[Play Circle](https://mart1n-xyz.github.io/circle-game/) · [What is implemented and checked](docs/build-notes.md)
 
 The table includes monthly budgeting, outside investments, personal co-funding and circle loans, disclosure choices, sureties, recused member votes, automatic and extra repayments, arrears/defaults, losses and recoveries, saver interest and dividends, withdrawals and exit, a portfolio, a ledger, and standings. Progress saves automatically in the current browser.
 
@@ -30,7 +30,20 @@ npx playwright install --with-deps chromium
 npm run test:browser     # Desktop + mobile controls, persistence, and complete seasons
 ```
 
-The browser suite uses `playwright.config.ts` and starts Vite when needed. On Linux, Chromium needs its system libraries; the installation command may require administrator rights. Production hosting is configured in `.openai/hosting.json` and remains private.
+The browser suite uses `playwright.config.ts` and starts Vite when needed. On Linux, Chromium needs its system libraries; the installation command may require administrator rights.
+
+## GitHub Pages
+
+The repository and game are public at the user's request. [.github/workflows/pages.yml](.github/workflows/pages.yml) tests and builds the game on every push to `main`, then deploys `dist/` to GitHub Pages. It can also be run manually from the Actions tab. The workflow reads the Pages base path and passes it to Vite so scripts, styles, and fonts load correctly below `/circle-game/`.
+
+To preview the same build locally:
+
+```sh
+npm run build -- --base=/circle-game/
+npm run preview -- --base=/circle-game/
+```
+
+Open `http://localhost:4173/circle-game/`. The previous owner-private Sites deployment is recorded separately in `.openai/hosting.json`. Browser saves are specific to each site's origin, so the Pages URL starts with its own local season.
 
 ## Original design documents
 

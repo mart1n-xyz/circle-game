@@ -1,6 +1,6 @@
 # P1 browser game — implementation record
 
-The user’s subsequent instruction, “ok build this out as in browser board game,” authorized implementation after the planning phase. This release implements the P1 member season defined in the delivery plan. The private repository and owner-private Site are the delivery destinations.
+The user’s subsequent instruction, “ok build this out as in browser board game,” authorized implementation after the planning phase. This release implements the P1 member season defined in the delivery plan. It was first delivered to a private repository and owner-private Site. The later instruction, “Make tre repo public and deploy on GitHub pages,” authorizes the public repository and Pages release.
 
 ## Playable behavior
 
@@ -66,4 +66,8 @@ The original uploaded blueprint is unchanged. SHA-256: `cc441e18ead23d05ddac5ec8
 
 ## Delivery
 
-The root package builds the application to `dist/`. `.openai/hosting.json` binds this repository to the existing owner-private Site. The Sites source workflow commits/pushes the exact reviewed source and packages its built assets; the same commit is pushed to the private GitHub repository. No runtime environment secrets or external finance service are required.
+The root package builds the application to `dist/`. The public game is published at <https://mart1n-xyz.github.io/circle-game/> by `.github/workflows/pages.yml`. Pushes to `main` and manual dispatches run the engine tests, build with the Pages base path, upload only `dist/`, and deploy through the `github-pages` environment. GitHub Actions are pinned to verified commit SHAs, with read permissions for the build and Pages/OIDC write permissions for the deployment job.
+
+The base-path configuration follows the [Vite deployment guide](https://vite.dev/guide/static-deploy#github-pages); publication uses [GitHub's custom Pages workflow](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). The production build must be checked at `/circle-game/`, including its font and JavaScript requests. Source documentation and the uploaded blueprint are available in the now-public repository; the Pages artifact contains only the built application and its static assets.
+
+`.openai/hosting.json` retains the identity of the separate owner-private Sites deployment. No runtime environment secrets or external finance service are required. Browser-local saves do not transfer automatically between the two hosting origins.
